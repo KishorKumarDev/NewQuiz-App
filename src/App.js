@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+// 
+import React,{useState} from 'react'
+import questions from './questions.json'
+import Display from './Display'
 
-function App() {
+const App = (props) => {
+  let tempMarks = []
+  const [marks,setMarks] = useState([]);
+  const changehandler =(value,index) =>{
+    tempMarks = marks
+    tempMarks[index]= value;
+        setMarks([...tempMarks]);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+    <center>
+    <h1>Quiz App</h1>
+    {questions.map((question,index) =>{
+      return(
+        <Display question={question} index={index} changehandler={changehandler}/>
+      )
+    })}
+    <button onClick={() => alert(marks.reduce((a,b)=> a+b,0)+'/10')}>End Quiz</button>
+    </center>
+    
+      
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
